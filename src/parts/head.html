@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<script>document.documentElement.className="js";</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Políticas públicas e indicadores dos governos do Brasil (FHC a Lula III)</title>
+<style>
+:root{
+  --bg:#fafaf8;--card:#fff;--ink:#1d1d1b;--mut:#6b6b66;--line:#e4e2dc;
+  --E:#b5342a;--CE:#d9772b;--C:#8a8a85;--CD:#4f8fc0;--D:#1f4e8c;
+  --m:#2e7d4f;--p:#b5342a;--x:#c58a14;--d:#7b4fa3;--i:#8a8a85;--n:#dcdbd6;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:1150px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:24px;margin:0 0 4px}
+.sub{color:var(--mut);margin:0 0 14px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px;justify-content:flex-end}
+.bar button,.flt button{border:1px solid var(--line);background:var(--card);padding:6px 11px;border-radius:8px;font:inherit;cursor:pointer}
+.bar button:hover,.flt button:hover{background:#f0efea}
+.flt{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:0 0 14px;font-size:12px;color:var(--mut)}
+.flt button{font-size:12px;padding:4px 9px}
+.flt button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin:0 0 12px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+.crit{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:2px 14px;margin-bottom:18px}
+.crit summary{cursor:pointer;padding:10px 0;font-weight:650}
+.crit table td,.crit table th{font-size:12.5px}
+.strip{display:flex;height:60px;border-radius:10px;overflow:hidden;border:1px solid var(--line);margin-bottom:6px}
+.strip a{display:flex;flex-direction:column;justify-content:center;padding:0 10px;color:#fff;text-decoration:none;min-width:0;overflow:hidden}
+.strip a b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.strip a i{font-style:normal;font-size:11px;opacity:.9;white-space:nowrap}
+.axis{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);margin-bottom:16px}
+.chart{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:20px}
+.chart h3{margin:0 0 2px;font-size:14px}
+.chart p{margin:0 0 6px;font-size:12px;color:var(--mut)}
+svg text{font-family:inherit}
+details.gov{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:10px;margin-bottom:18px}
+details.gov>summary{cursor:pointer;list-style:none;padding:14px 16px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+details.gov>summary::-webkit-details-marker{display:none}
+.gt{font-size:18px;font-weight:650}.gp{color:var(--mut)}
+.badge{font-size:11px;padding:2px 8px;border-radius:99px;color:#fff;background:var(--c)}
+.gbody{padding:0 16px 16px}
+.sec{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:16px 0 6px}
+.ctx{margin:0 0 4px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;vertical-align:top;padding:6px 8px;border-top:1px solid var(--line)}
+th{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;border-top:0}
+.pow{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.pow>div{border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.pow h4{margin:0 0 4px;font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.pow ul{margin:0;padding:0}
+.pow li{list-style:none;display:flex;gap:6px;align-items:center;margin:2px 0;font-size:13px}
+.pow .per{color:var(--mut);font-size:12px;margin-left:auto;white-space:nowrap}
+.sp{width:9px;height:9px;border-radius:50%;flex:none;display:inline-block}
+.k{color:var(--mut);font-size:11px}
+.v{display:inline-block;font-size:11px;font-weight:650;padding:1px 7px;border-radius:99px;color:#fff;white-space:nowrap}
+.v.m{background:var(--m)}.v.p{background:var(--p)}.v.x{background:var(--x)}.v.d{background:var(--d)}.v.i{background:var(--i)}
+.v.e{background:#bbb;color:#333}
+.v.n{background:var(--n);color:#6b6b66}
+tr.nm td{color:#9a9a94;background:#f7f6f2;font-size:12px}
+.chips{display:flex;flex-wrap:wrap;gap:4px;width:100%;margin-top:2px}
+.chips .v{font-weight:600;font-size:10.5px;padding:1px 6px}
+.pres{display:grid;grid-template-columns:auto auto auto;gap:10px 18px;align-items:start;background:#f6f5f1;border-radius:8px;padding:10px 12px}
+.pk{display:flex;flex-direction:column;max-width:280px}
+.pk b{font-size:20px;line-height:1.15}
+.pk .lv{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);font-weight:600}
+.pt2{grid-column:1/-1;margin-top:2px;background:#fff;border-radius:8px}
+.at{display:inline-block;font-size:11px;font-weight:650;padding:1px 7px;border-radius:99px;border:1px solid #bbb}
+.at.a{background:#1d1d1b;color:#fff;border-color:#1d1d1b}.at.m{background:#8a8a85;color:#fff;border-color:#8a8a85}.at.b{background:#fff;color:#6b6b66}
+.amb td{font-size:12.5px}
+.pk span{font-size:12px;color:var(--mut)}
+.pg{min-width:220px}
+.sbar{display:flex;height:20px;border-radius:6px;overflow:hidden;background:var(--n)}
+.sbar .v{border-radius:0;font-style:normal;text-align:center;font-size:10px;padding:3px 0}
+.ptx,.pres>p.k{grid-column:1/-1;margin:0}
+.sc td{font-size:12.5px}
+.sc td.n{white-space:nowrap}
+.pty{display:inline-flex;align-items:center;gap:4px;margin:1px 6px 1px 0;white-space:nowrap}
+.big{font-size:20px;font-weight:650;margin:30px 0 4px}
+
+.tabr{position:absolute;opacity:0;pointer-events:none}
+.tabs{display:flex;gap:2px;overflow-x:auto;border-bottom:1px solid var(--line);margin:0 0 16px}
+.tabs label{padding:9px 14px;cursor:pointer;border-bottom:3px solid transparent;color:var(--mut);white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.tabs label:hover{color:var(--ink)}
+.tab{display:none}.tab.all{display:block}
+#tab-ov:checked~#t-ov,#tab-ind:checked~#t-ind,#tab-pres:checked~#t-pres,#tab-gov:checked~#t-gov,#tab-amb:checked~#t-amb,#tab-esc:checked~#t-esc{display:block}
+#tab-ov:checked~.tabs label[for=tab-ov],#tab-ind:checked~.tabs label[for=tab-ind],#tab-pres:checked~.tabs label[for=tab-pres],#tab-gov:checked~.tabs label[for=tab-gov],#tab-amb:checked~.tabs label[for=tab-amb],#tab-esc:checked~.tabs label[for=tab-esc]{color:var(--ink);font-weight:650;border-bottom-color:var(--ink)}
+.bar,.flt{display:none}
+html.js .bar{display:flex}html.js #tab-gov:checked~#flt,html.js #tab-amb:checked~#flt{display:flex}
+.tabh{display:none;font-size:18px;margin:26px 0 6px}
+.tw{overflow-x:auto}
+.v.e{background:#bbb;color:#333}
+.it td,.it th{font-size:12px}
+.it td.ic{white-space:nowrap;text-align:right}
+.it td.ic small{display:block;color:var(--mut);font-size:10.5px}
+.it td.cm{background:#e6f2ea}.it td.cp{background:#f6e0dd}.it td.ce{background:#f0efea}.it td.cn{background:#e9e8e3;color:#8a8a85}
+.ov td{font-size:12.5px}.ov .sbar{min-width:120px;margin-bottom:2px}
+@media (max-width:760px){.pres{grid-template-columns:1fr}}
+.cf{font-size:11px;color:var(--mut)}
+.cmp td.n{white-space:nowrap}
+.saldo{background:#f6f5f1;border-radius:8px;padding:10px 12px;margin-top:12px}
+.pol{border:1px solid var(--line);border-radius:8px;margin:8px 0;background:#fff}
+.pol>summary{cursor:pointer;padding:9px 11px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;list-style:none}
+.pol>summary::-webkit-details-marker{display:none}
+.pol>summary:before{content:"▸";color:var(--mut)}
+.pol[open]>summary:before{content:"▾"}
+.pa{color:var(--mut);font-size:12px;min-width:62px}
+.pt{font-weight:650}
+.po{font-size:10.5px;padding:1px 6px;border-radius:4px;background:#ecebe6;color:#444}
+.pb{padding:0 12px 12px}
+.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:6px 14px;margin:6px 0 8px;font-size:13px}
+.who b{display:block;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.ba div{background:#f6f5f1;border-radius:8px;padding:8px 10px}
+.ba b{display:block;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.note{font-size:12px;color:var(--mut);margin-top:22px;border-top:1px solid var(--line);padding-top:12px}
+.note li{margin:3px 0}
+.hide{display:none!important}
+@media (max-width:760px){.ba{grid-template-columns:1fr}}
+@media print{
+  body{background:#fff;font-size:11px}
+  .bar,.flt,.tabs,html.js .bar,html.js .flt{display:none}
+  .tab{display:block!important}.tabh{display:block}
+  #app{max-width:none;padding:0}
+  .pol,details.gov{break-inside:avoid-page}
+  .strip,.dot,.badge,.sp,.v,details.gov{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.how{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0 0 14px;font-size:13px}
+.how ul{margin:6px 0 0;padding-left:18px}.how li{margin:3px 0}
+#upd{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+#upd.on{display:flex}
+#upd .box{background:#fff;color:#1d1d1b;border-radius:12px;padding:18px 20px;max-width:380px;box-shadow:0 10px 40px rgba(0,0,0,.25);font-size:14px}
+#upd .box b{font-size:16px;display:block;margin-bottom:6px}
+#upd .box div{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
+#upd .box button{border:1px solid #ccc;background:#fff;padding:6px 12px;border-radius:8px;font:inherit;cursor:pointer}
+#upd .box button.pri{background:#1d1d1b;color:#fff;border-color:#1d1d1b}
+@media print{.how{break-inside:avoid}#upd{display:none!important}}
+</style>
+</head>
+<body>
+<div id="app">
+  <h1>Políticas públicas e indicadores, de FHC ao governo atual (1995–2026)</h1>
+  <p class="sub">Atualizado em <b id="bd"></b> (versão <span id="bv"></span>). Indicadores de séries oficiais; políticas e escândalos ainda em conferência (conferidos só para Lula II e Temer). Cada governo é comparado só com o anterior, dentro do país.</p>
+
+  <div class="how" id="how"><b>Como usar</b><ul>
+    <li><b>O que é:</b> compara cada governo (FHC a Lula III) com o anterior, só dentro do país, usando indicadores de fonte oficial.</li>
+    <li><b>Abas:</b> <i>Visão geral</i> = placar de cada governo. <i>Indicadores</i> = todos os números, por dimensão, com a fonte de cada um. <i>Peso do presidente</i> = quanto do resultado estava ao alcance do Executivo. <i>Governos, Meio ambiente e Escândalos</i> = texto de apoio (leia o aviso amarelo).</li>
+    <li><b>Cores:</b> verde = melhorou, vermelho = piorou, cinza = estável. <i>n/d</i> ou "sem comparação" = não há dado conferido ou a série mudou.</li>
+    <li><b>Controles:</b> os filtros aparecem nas abas de políticas; Expandir/Recolher abre ou fecha os cards; PDF e PNG exportam a página com a fonte.</li>
+    <li><b>Cuidado:</b> a página mostra o que mudou, não prova o que causou a mudança. Governos antigos têm menos indicadores comparáveis.</li>
+  </ul></div>
+
+  <div class="bar" id="bar">
+    <button onclick="toggleAll(true)" style="margin-right:0">Expandir tudo</button>
+    <button onclick="toggleAll(false)" style="margin-right:auto">Recolher tudo</button>
+    <button onclick="window.print()">PDF</button>
+    <button onclick="exportPNG()">PNG</button>
+  </div>
+
+  <div class="legend">
+    <span><i class="dot" style="background:var(--E)"></i>Esquerda</span>
+    <span><i class="dot" style="background:var(--CE)"></i>Centro-esquerda</span>
+    <span><i class="dot" style="background:var(--C)"></i>Centro</span>
+    <span><i class="dot" style="background:var(--CD)"></i>Centro-direita</span>
+    <span><i class="dot" style="background:var(--D)"></i>Direita</span>
+    <span><i class="sp" style="background:#fff;border:1px solid #bbb"></i>Judiciário (não partidário)</span>
+  </div>
+
+  <details class="crit" id="crit">
+    <summary>Como ler (critério)</summary>
+    <p class="k"><b>Indicadores:</b> cada indicador é comparado com o mesmo indicador do governo anterior. <b>melhorou</b> ou <b>piorou</b> se a variação passa do limiar do indicador (PIB ±0,5 p.p.; PIB per capita ±0,5; IPCA ±1; dívida/PIB ±3; primário ±1 p.p.; Selic ±2; reservas ±US$ 30 bi; desemprego ±1; pobreza ±2; mortalidade infantil ±1; Gini ±0,01; homicídios ±2; Pisa ±10 pontos; conta corrente ±1 p.p.; desmatamento ±15%), <b>estável</b> se fica abaixo, e <b>sem comparação</b> (cinza) se falta dado conferido ou a série mudou. Médias = média simples dos anos-calendário do governo (Dilma 2011–2016, Temer 2017–2018). Estoques e taxas pontuais = fim do governo (Dilma: ago/2016).</p>
+    <p class="k"><b>Controle do Executivo:</b> <b>alto</b> = o Executivo federal comanda o instrumento principal (resultado primário, desmatamento); <b>médio</b> = o instrumento é dividido com o Banco Central, o Congresso, Estados ou municípios (inflação, dívida, Selic, reservas, desigualdade, pobreza); <b>baixo</b> = ciclo externo ou outros entes dominam (PIB, desemprego, homicídios). É uma regra fixa, igual para todos os governos.</p>
+    <p class="k"><b>Peso do presidente:</b> (1) <b>Desempenho ponderado</b> = saldo (melhorou − piorou) ÷ indicadores com comparação, com peso 1 (controle alto), 0,5 (médio) e 0,25 (baixo); favorável ≥ +25%, desfavorável ≤ −25%. (2) <b>Onde veio o resultado</b> = o mesmo saldo, separado entre indicadores de controle alto/médio e de controle baixo. Nenhum mede causalidade. FHC é o ponto de partida.</p>
+    <p class="k"><b>Vereditos por política:</b> melhorou, piorou, misto, disputado, inconclusivo ou não mensurável, por dimensão (econômica, fiscal, social, ambiental, institucional, externa, segurança, tecnologia). Políticas sem nenhum indicador associado ficam omitidas. Os vereditos por política são leitura analítica, não cálculo mecânico, e só as de Lula II e Temer foram revisadas em fonte oficial.</p>
+    <p class="k"><b>Escândalos:</b> os partidos indicam quem foi citado, não quem foi condenado; a situação judicial está em cada linha. Só Lula II e Temer tiveram a parte de políticas revisada; os casos ainda não foram conferidos um a um.</p>
+    <p class="k"><b>Limite:</b> o placar depende de quais indicadores têm série oficial conferida. Há mais dados econômicos e fiscais do que sociais, de segurança ou ambientais; governos antigos têm menos indicadores comparáveis, e por isso o número de indicadores aparece ao lado de cada placar.</p>
+  </details>
+
+  <input type="radio" name="tab" class="tabr" id="tab-ov" checked>
+  <input type="radio" name="tab" class="tabr" id="tab-ind">
+  <input type="radio" name="tab" class="tabr" id="tab-pres">
+  <input type="radio" name="tab" class="tabr" id="tab-gov">
+  <input type="radio" name="tab" class="tabr" id="tab-amb">
+  <input type="radio" name="tab" class="tabr" id="tab-esc">
+  <div class="tabs" id="tabs"><label for="tab-ov">Visão geral</label><label for="tab-ind">Indicadores por dimensão</label><label for="tab-pres">Peso do presidente</label><label for="tab-gov">Governos e políticas</label><label for="tab-amb">Meio ambiente e energia</label><label for="tab-esc">Escândalos</label></div>
+  <div class="flt" id="flt"></div>
+
+  <section class="tab" id="t-ov">
+    <h2 class="tabh">Visão geral</h2>
+    <div class="strip" id="strip"></div>
+    <div class="axis"><span>1995</span><span>2003</span><span>2011</span><span>2019</span><span>2027</span></div>
+    <div class="chart">
+      <h3>Crescimento anual do PIB (%), 1996–2025</h3>
+      <p>Barras coloridas pelo governo em exercício na maior parte do ano. Fonte: IBGE, Contas Nacionais.</p>
+      <svg id="gdp" viewBox="0 0 1040 220" width="100%" role="img" aria-label="PIB anual"></svg>
+    </div>
+    <div id="ov"></div>
+  </section>
+
+  <section class="tab" id="t-ind"><h2 class="tabh">Indicadores por dimensão</h2><div id="ind"></div></section>
+  <section class="tab" id="t-pres"><h2 class="tabh">Peso do presidente</h2><div id="pres"></div></section>
+
+  <section class="tab" id="t-gov"><h2 class="tabh">Governos e políticas</h2><p class="k" style="background:#fff7e0;border:1px solid #ecd48a;border-radius:8px;padding:8px 10px">Atenção: o texto desta aba ainda não foi conferido ponto a ponto em fonte oficial. Só as políticas de Lula II e de Temer passaram por revisão. Trate o restante como rascunho: não cite sem checar.</p><div id="govs"></div></section>
+  <section class="tab" id="t-amb"><h2 class="tabh">Meio ambiente e energia</h2><p class="k" style="background:#fff7e0;border:1px solid #ecd48a;border-radius:8px;padding:8px 10px">Atenção: o texto desta aba ainda não foi conferido ponto a ponto em fonte oficial. Só as políticas de Lula II e de Temer passaram por revisão. Trate o restante como rascunho: não cite sem checar.</p><div id="amb"></div></section>
+  <section class="tab" id="t-esc"><h2 class="tabh">Escândalos e casos de corrupção por governo</h2><p class="k" style="background:#fff7e0;border:1px solid #ecd48a;border-radius:8px;padding:8px 10px">Atenção: o texto desta aba ainda não foi conferido ponto a ponto em fonte oficial. Só as políticas de Lula II e de Temer passaram por revisão. Trate o restante como rascunho: não cite sem checar.</p>
+    <p class="sub">Partidos e atores citados, situação judicial e impacto econômico. Citação em investigação não implica culpa. Casos estaduais ou privados entram quando tiveram repercussão nacional.</p>
+    <div id="scand"></div>
+  </section>
+
+  <div class="note">
+    <ul>
+      <li><b>Espectro:</b> enquadramento usual na imprensa e na ciência política, simplificado. Partidos mudam de posição e o Centrão transita entre centro e centro-direita. O STF aparece sem espectro: os ministros constam com o presidente que os indicou.</li>
+      <li><b>Autoria x aprovação x aplicação:</b> "quem propôs" é o autor da iniciativa; "quem aprovou" são os Poderes e partidos que votaram; "quem aplicou" é quem executou ou fiscalizou. Quando o placar não foi verificado, o campo diz isso.</li>
+      <li><b>Causalidade:</b> crescimento, inflação, desemprego e desmatamento também respondem a juros globais, commodities, clima e pandemia. A página mostra o que mudou e quanto do que mudou estava ao alcance do Executivo, não o que cada governo causou.</li>
+      <li><b>Números:</b> séries oficiais lidas em 20/10/2026; fonte de cada indicador na aba Indicadores. Mudanças de metodologia limitam a comparação entre décadas: desemprego só é comparado dentro da mesma série (PME ou PNAD Contínua).</li>
+      <li><b>2026:</b> o resultado da eleição não foi incorporado; Lula III usa dados até 2025 (pobreza e homicídios, até onde há publicação).</li>
+    </ul>
+  </div>
+  <div class="note" id="srcnote">
+    <p><b>Fonte da extração:</b> dados lidos em 20/10/2026 (PIB per capita, mortalidade infantil, Pisa, PIB mundial e Fed funds em 22/10/2026) em BCB (SGS), IBGE (SIDRA, Contas Nacionais, Síntese de Indicadores Sociais, Projeção da População), INPE (Prodes), Ipea e Fórum Brasileiro de Segurança Pública (Atlas da Violência 2025), OCDE/Inep (Pisa), FMI (World Economic Outlook, out/2025), Federal Reserve (via FRED) e Senado/Câmara (vices e mandatos). A fonte exata de cada indicador está na aba Indicadores. Página: analises-ashen.vercel.app. Políticas e escândalos: conferidos em fonte oficial só para Lula II e Temer.</p>
+  </div>
+</div>
+<div id="upd" role="dialog" aria-modal="true" aria-label="Nova versão disponível"><div class="box"><b>Há uma versão mais recente</b>Esta página foi atualizada desde que você a abriu. Atualize para ver os dados mais novos.<div><button id="updLater">Depois</button><button id="updNow" class="pri">Atualizar agora</button></div></div></div>
+<script>

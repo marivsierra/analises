@@ -127,12 +127,30 @@ html.js .bar{display:flex}html.js #tab-gov:checked~#flt,html.js #tab-amb:checked
   .pol,details.gov{break-inside:avoid-page}
   .strip,.dot,.badge,.sp,.v,details.gov{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+.how{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0 0 14px;font-size:13px}
+.how ul{margin:6px 0 0;padding-left:18px}.how li{margin:3px 0}
+#upd{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+#upd.on{display:flex}
+#upd .box{background:#fff;color:#1d1d1b;border-radius:12px;padding:18px 20px;max-width:380px;box-shadow:0 10px 40px rgba(0,0,0,.25);font-size:14px}
+#upd .box b{font-size:16px;display:block;margin-bottom:6px}
+#upd .box div{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
+#upd .box button{border:1px solid #ccc;background:#fff;padding:6px 12px;border-radius:8px;font:inherit;cursor:pointer}
+#upd .box button.pri{background:#1d1d1b;color:#fff;border-color:#1d1d1b}
+@media print{.how{break-inside:avoid}#upd{display:none!important}}
 </style>
 </head>
 <body>
 <div id="app">
   <h1>Políticas públicas e indicadores, de FHC ao governo atual (1995–2026)</h1>
-  <p class="sub">Versão 4: os indicadores vêm de séries oficiais (BCB, IBGE, INPE, Ipea/FBSP, OCDE/Inep, FMI, Fed), lidas em 20/10/2026. Políticas e escândalos ainda não foram conferidos ponto a ponto, exceto os de Lula II e Temer; as abas avisam. Cada governo é comparado só com o anterior.</p>
+  <p class="sub">Atualizado em <b id="bd">22/10/2026</b> (versão <span id="bv">2026-10-22.2</span>). Indicadores de séries oficiais; políticas e escândalos ainda em conferência (conferidos só para Lula II e Temer). Cada governo é comparado só com o anterior, dentro do país.</p>
+
+  <div class="how" id="how"><b>Como usar</b><ul>
+    <li><b>O que é:</b> compara cada governo (FHC a Lula III) com o anterior, só dentro do país, usando indicadores de fonte oficial.</li>
+    <li><b>Abas:</b> <i>Visão geral</i> = placar de cada governo. <i>Indicadores</i> = todos os números, por dimensão, com a fonte de cada um. <i>Peso do presidente</i> = quanto do resultado estava ao alcance do Executivo. <i>Governos, Meio ambiente e Escândalos</i> = texto de apoio (leia o aviso amarelo).</li>
+    <li><b>Cores:</b> verde = melhorou, vermelho = piorou, cinza = estável. <i>n/d</i> ou "sem comparação" = não há dado conferido ou a série mudou.</li>
+    <li><b>Controles:</b> os filtros aparecem nas abas de políticas; Expandir/Recolher abre ou fecha os cards; PDF e PNG exportam a página com a fonte.</li>
+    <li><b>Cuidado:</b> a página mostra o que mudou, não prova o que causou a mudança. Governos antigos têm menos indicadores comparáveis.</li>
+  </ul></div>
 
   <div class="bar" id="bar">
     <button onclick="toggleAll(true)" style="margin-right:0">Expandir tudo</button>
@@ -204,6 +222,7 @@ html.js .bar{display:flex}html.js #tab-gov:checked~#flt,html.js #tab-amb:checked
     <p><b>Fonte da extração:</b> dados lidos em 20/10/2026 (PIB per capita, mortalidade infantil, Pisa, PIB mundial e Fed funds em 22/10/2026) em BCB (SGS), IBGE (SIDRA, Contas Nacionais, Síntese de Indicadores Sociais, Projeção da População), INPE (Prodes), Ipea e Fórum Brasileiro de Segurança Pública (Atlas da Violência 2025), OCDE/Inep (Pisa), FMI (World Economic Outlook, out/2025), Federal Reserve (via FRED) e Senado/Câmara (vices e mandatos). A fonte exata de cada indicador está na aba Indicadores. Página: analises-ashen.vercel.app. Políticas e escândalos: conferidos em fonte oficial só para Lula II e Temer.</p>
   </div>
 </div>
+<div id="upd" role="dialog" aria-modal="true" aria-label="Nova versão disponível"><div class="box"><b>Há uma versão mais recente</b>Esta página foi atualizada desde que você a abriu. Atualize para ver os dados mais novos.<div><button id="updLater">Depois</button><button id="updNow" class="pri">Atualizar agora</button></div></div></div>
 <script>
 var GDP = {1996:2.2,1997:3.4,1998:0.3,1999:0.5,2000:4.4,2001:1.4,2002:3.1,2003:1.1,2004:5.8,2005:3.2,2006:4.0,2007:6.1,2008:5.1,2009:-0.1,2010:7.5,2011:4.0,2012:1.9,2013:3.0,2014:0.5,2015:-3.5,2016:-3.3,2017:1.3,2018:1.7,2019:1.3,2020:-3.3,2021:4.8,2022:3.0,2023:3.2,2024:3.4,2025:2.3};
 var GOVS = [];
@@ -1961,6 +1980,8 @@ var IND=[
  {g:"Contexto",n:"Câmbio R$/US$ (PTAX venda, fim)",dir:0,ctl:"m",v:[3.63,2.15,1.69,3.21,3.89,5.24,5.45],dec:2,fonte:"BCB, SGS 3698. Sem direção desejável única."},
 ];
 IND.forEach(function(x){ if(!x.src&&(!x.v||x.v.length!==7)) throw new Error('IND valores: '+x.n); });
+/* Identificador da versão publicada. Mude `v` a cada atualização: a página compara com version.json do site e avisa quem está com versão antiga. */
+var BUILD={v:"2026-10-22.2",d:"22/10/2026"};
 
 var ESP = {E:["Esquerda","--E"],CE:["Centro-esquerda","--CE"],C:["Centro","--C"],CD:["Centro-direita","--CD"],D:["Direita","--D"]};
 var VER = {m:"melhorou",p:"piorou",x:"misto",d:"disputado",i:"inconclusivo",n:"não mensurável"};
@@ -2392,7 +2413,30 @@ function exportPNG(){
   s.onload=go; s.onerror=function(){alert('Não foi possível carregar o exportador de PNG (precisa de internet). Use Imprimir / salvar PDF.');};
   document.head.appendChild(s);
 }
+
+/* ===== Aviso de versão ===== */
+var SITE='https://analises-ashen.vercel.app/';
+function showBuild(){var a=document.getElementById('bd'),b=document.getElementById('bv'); if(a)a.textContent=BUILD.d; if(b)b.textContent=BUILD.v;}
+function checkVersion(){
+  if(window.__PRERENDER||!window.fetch) return;
+  var url=(location.protocol==='http:'||location.protocol==='https:'?'':SITE)+'version.json?t='+Date.now();
+  fetch(url,{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
+    if(!j||!j.version||j.version===BUILD.v||window.__updShown) return;
+    window.__updShown=true; var u=document.getElementById('upd'); if(u) u.className='on';
+  }).catch(function(){});
+}
+(function(){
+  var u=document.getElementById('upd'); if(!u) return;
+  document.getElementById('updLater').onclick=function(){u.className='';};
+  document.getElementById('updNow').onclick=function(){
+    if(location.protocol==='http:'||location.protocol==='https:'){ location.href=location.pathname+'?v='+Date.now(); } else { window.open(SITE,'_blank'); u.className=''; }
+  };
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden){window.__updShown=false; checkVersion();} });
+  setInterval(function(){window.__updShown=false; checkVersion();},30*60*1000);
+})();
+showBuild();
 render();
+checkVersion();
 </script>
 
 
