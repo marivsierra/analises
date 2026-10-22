@@ -142,7 +142,7 @@ html.js .bar{display:flex}html.js #tab-gov:checked~#flt,html.js #tab-amb:checked
 <body>
 <div id="app">
   <h1>Políticas públicas e indicadores, de FHC ao governo atual (1995–2026)</h1>
-  <p class="sub">Atualizado em <b id="bd">22/10/2026</b> (versão <span id="bv">2026-10-22.2</span>). Indicadores de séries oficiais; políticas e escândalos ainda em conferência (conferidos só para Lula II e Temer). Cada governo é comparado só com o anterior, dentro do país.</p>
+  <p class="sub">Atualizado em <b id="bd">22/10/2026</b> (versão <span id="bv">2026-10-22.3</span>). Indicadores de séries oficiais; políticas e escândalos ainda em conferência (conferidos só para Lula II e Temer). Cada governo é comparado só com o anterior, dentro do país.</p>
 
   <div class="how" id="how"><b>Como usar</b><ul>
     <li><b>O que é:</b> compara cada governo (FHC a Lula III) com o anterior, só dentro do país, usando indicadores de fonte oficial.</li>
@@ -219,7 +219,7 @@ html.js .bar{display:flex}html.js #tab-gov:checked~#flt,html.js #tab-amb:checked
     </ul>
   </div>
   <div class="note" id="srcnote">
-    <p><b>Fonte da extração:</b> dados lidos em 20/10/2026 (PIB per capita, mortalidade infantil, Pisa, PIB mundial e Fed funds em 22/10/2026) em BCB (SGS), IBGE (SIDRA, Contas Nacionais, Síntese de Indicadores Sociais, Projeção da População), INPE (Prodes), Ipea e Fórum Brasileiro de Segurança Pública (Atlas da Violência 2025), OCDE/Inep (Pisa), FMI (World Economic Outlook, out/2025), Federal Reserve (via FRED) e Senado/Câmara (vices e mandatos). A fonte exata de cada indicador está na aba Indicadores. Página: analises-ashen.vercel.app. Políticas e escândalos: conferidos em fonte oficial só para Lula II e Temer.</p>
+    <p><b>Fonte da extração:</b> dados lidos em 20/10/2026 (PIB per capita, mortalidade infantil, Pisa, PIB mundial e Fed funds em 22/10/2026) em BCB (SGS), IBGE (SIDRA, Contas Nacionais, Síntese de Indicadores Sociais, Projeção da População), INPE (Prodes), Ipea e Fórum Brasileiro de Segurança Pública (Atlas da Violência 2025), OCDE/Inep (Pisa), FMI (World Economic Outlook, out/2025), Federal Reserve (via FRED) e Senado/Câmara (vices e mandatos). A fonte exata de cada indicador está na aba Indicadores. Página: analises-politica-brasil.vercel.app. Políticas e escândalos: conferidos em fonte oficial só para Lula II e Temer.</p>
   </div>
 </div>
 <div id="upd" role="dialog" aria-modal="true" aria-label="Nova versão disponível"><div class="box"><b>Há uma versão mais recente</b>Esta página foi atualizada desde que você a abriu. Atualize para ver os dados mais novos.<div><button id="updLater">Depois</button><button id="updNow" class="pri">Atualizar agora</button></div></div></div>
@@ -1981,7 +1981,7 @@ var IND=[
 ];
 IND.forEach(function(x){ if(!x.src&&(!x.v||x.v.length!==7)) throw new Error('IND valores: '+x.n); });
 /* Identificador da versão publicada. Mude `v` a cada atualização: a página compara com version.json do site e avisa quem está com versão antiga. */
-var BUILD={v:"2026-10-22.2",d:"22/10/2026"};
+var BUILD={v:"2026-10-22.3",d:"22/10/2026"};
 
 var ESP = {E:["Esquerda","--E"],CE:["Centro-esquerda","--CE"],C:["Centro","--C"],CD:["Centro-direita","--CD"],D:["Direita","--D"]};
 var VER = {m:"melhorou",p:"piorou",x:"misto",d:"disputado",i:"inconclusivo",n:"não mensurável"};
@@ -2415,7 +2415,7 @@ function exportPNG(){
 }
 
 /* ===== Aviso de versão ===== */
-var SITE='https://analises-ashen.vercel.app/';
+var SITE='https://analises-politica-brasil.vercel.app/';
 function showBuild(){var a=document.getElementById('bd'),b=document.getElementById('bv'); if(a)a.textContent=BUILD.d; if(b)b.textContent=BUILD.v;}
 function checkVersion(){
   if(window.__PRERENDER||!window.fetch) return;

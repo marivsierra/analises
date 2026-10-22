@@ -1,6 +1,6 @@
 # Como atualizar a página (leia antes de mexer)
 
-Página: https://analises-ashen.vercel.app/ (Vercel publica sozinho a cada push na branch `main`).
+Página: https://analises-politica-brasil.vercel.app/ (Vercel publica sozinho a cada push na branch `main`).
 Código-fonte: `src/parts/*` (HTML/JS em pedaços). Monte com `bash src/build.sh`: gera `index.html` e `version.json` na raiz.
 Requer Node + Playwright (Chromium em /opt/pw-browsers). Se o build falhar, NÃO publique.
 
@@ -30,4 +30,4 @@ NÃO altere: critérios, limiares, pesos de controle, texto de políticas e esc�
 ## Depois de montar
 1. Abra o HTML com Playwright e confira: sem erros de página, as 6 abas, números dos indicadores alterados.
 2. `git add -A && git commit` (mensagem curta com o que mudou) e `git push origin main`.
-3. Confira que `https://analises-ashen.vercel.app/version.json` mostra a nova versão (o deploy leva ~1 min).
+3. Confira que `https://analises-politica-brasil.vercel.app/version.json` mostra a nova versão (o deploy leva ~1 min).

@@ -431,7 +431,7 @@ function exportPNG(){
 }
 
 /* ===== Aviso de versão ===== */
-var SITE='https://analises-ashen.vercel.app/';
+var SITE='https://analises-politica-brasil.vercel.app/';
 function showBuild(){var a=document.getElementById('bd'),b=document.getElementById('bv'); if(a)a.textContent=BUILD.d; if(b)b.textContent=BUILD.v;}
 function checkVersion(){
   if(window.__PRERENDER||!window.fetch) return;
