@@ -88,7 +88,7 @@ tr.nm td{color:#9a9a94;background:#f7f6f2;font-size:12px}
 #tab-ov:checked~#t-ov,#tab-ind:checked~#t-ind,#tab-pres:checked~#t-pres,#tab-gov:checked~#t-gov,#tab-amb:checked~#t-amb,#tab-esc:checked~#t-esc{display:block}
 #tab-ov:checked~.tabs label[for=tab-ov],#tab-ind:checked~.tabs label[for=tab-ind],#tab-pres:checked~.tabs label[for=tab-pres],#tab-gov:checked~.tabs label[for=tab-gov],#tab-amb:checked~.tabs label[for=tab-amb],#tab-esc:checked~.tabs label[for=tab-esc]{color:var(--ink);font-weight:650;border-bottom-color:var(--ink)}
 .bar,.flt{display:none}
-html.js .bar{display:flex}html.js .flt{display:flex}
+html.js .bar{display:flex}html.js #tab-gov:checked~#flt,html.js #tab-amb:checked~#flt{display:flex}
 .tabh{display:none;font-size:18px;margin:26px 0 6px}
 .tw{overflow-x:auto}
 .v.e{background:#bbb;color:#333}
@@ -135,10 +135,11 @@ html.js .bar{display:flex}html.js .flt{display:flex}
   <p class="sub">Versão 4: os indicadores vêm de séries oficiais (BCB, IBGE, INPE, Ipea/FBSP, OCDE/Inep, FMI, Fed), lidas em 20/10/2026. Políticas e escândalos ainda não foram conferidos ponto a ponto, exceto os de Lula II e Temer; as abas avisam. Cada governo é comparado só com o anterior.</p>
 
   <div class="bar" id="bar">
+    <button onclick="toggleAll(true)" style="margin-right:0">Expandir tudo</button>
+    <button onclick="toggleAll(false)" style="margin-right:auto">Recolher tudo</button>
     <button onclick="window.print()">PDF</button>
     <button onclick="exportPNG()">PNG</button>
   </div>
-  <div class="flt" id="flt"><span>Poder de origem:</span><button data-k="po" data-v="all" class="on">Todos</button><button data-k="po" data-v="EX">Executivo</button><button data-k="po" data-v="LE">Legislativo</button><button data-k="po" data-v="JU">Judiciário</button><span style="margin-left:10px">Veredito (em qualquer dimensão):</span><button data-k="ve" data-v="all" class="on">Todos</button><button data-k="ve" data-v="m">melhorou</button><button data-k="ve" data-v="p">piorou</button><button data-k="ve" data-v="x">misto</button><button data-k="ve" data-v="d">disputado</button><button data-k="ve" data-v="i">inconclusivo</button></div>
 
   <div class="legend">
     <span><i class="dot" style="background:var(--E)"></i>Esquerda</span>
@@ -166,6 +167,7 @@ html.js .bar{display:flex}html.js .flt{display:flex}
   <input type="radio" name="tab" class="tabr" id="tab-amb">
   <input type="radio" name="tab" class="tabr" id="tab-esc">
   <div class="tabs" id="tabs"><label for="tab-ov">Visão geral</label><label for="tab-ind">Indicadores por dimensão</label><label for="tab-pres">Peso do presidente</label><label for="tab-gov">Governos e políticas</label><label for="tab-amb">Meio ambiente e energia</label><label for="tab-esc">Escândalos</label></div>
+  <div class="flt" id="flt"><span>Poder de origem:</span><button data-k="po" data-v="all" class="on">Todos</button><button data-k="po" data-v="EX">Executivo</button><button data-k="po" data-v="LE">Legislativo</button><button data-k="po" data-v="JU">Judiciário</button><span style="margin-left:10px">Veredito (em qualquer dimensão):</span><button data-k="ve" data-v="all" class="on">Todos</button><button data-k="ve" data-v="m">melhorou</button><button data-k="ve" data-v="p">piorou</button><button data-k="ve" data-v="x">misto</button><button data-k="ve" data-v="d">disputado</button><button data-k="ve" data-v="i">inconclusivo</button></div>
 
   <section class="tab" id="t-ov">
     <h2 class="tabh">Visão geral</h2>
